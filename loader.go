@@ -7,8 +7,9 @@ import (
 	"strconv"
 )
 
-func Load(cfg any) error {
-	t := reflect.TypeOf(cfg)
+func Load[T any](cfg *T) error {
+	t := reflect.TypeOf(*cfg)
+
 	fieldsCount := t.NumField()
 	cfgValue := reflect.ValueOf(cfg).Elem()
 	for i := 0; i < fieldsCount; i++ {

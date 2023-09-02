@@ -13,7 +13,7 @@ const testCount int = 134
 type TestCfg struct {
 	ConnectionURL string `senv:"TEST_DB_URL" json:"connectionUrl" xdf:"lol"`
 	Name          string `senv:"TEST_NAME" json:"name"`
-	Count         int    `senv:"TEST_COUNT" json:"name"`
+	Count         int    `senv:"TEST_COUNT" json:"count"`
 }
 
 func TestLoader(t *testing.T) {
@@ -21,7 +21,8 @@ func TestLoader(t *testing.T) {
 	os.Setenv("TEST_NAME", testName)
 	os.Setenv("TEST_COUNT", strconv.Itoa(testCount))
 	cfg := TestCfg{}
-	err := Load(cfg)
+
+	err := Load(&cfg)
 	if err != nil {
 		t.Error(err)
 		return
